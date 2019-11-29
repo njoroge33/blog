@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+{% import 'macros.html' as macro%}
+
+{%block title%}
+SIGNUP
+{%endblock%}
+
+{%block content%}
+<body class="container-fluid bg-secondary">
+<form action="{{url_for('main.signup')}}" , method="POST" class="container">
+    <div class="container" style="background-color:rgb(170, 165, 165);margin-top:10%;padding-bottom: 5%;">
+        <h1>SIGN UP</h1>
+
+        {{macro.displayField(form.email, 'Email...')}}
+        {{macro.displayField(form.username, 'Username...', autocomplete='off', autofocus=true)}}
+        {{macro.displayField(form.password, 'Password')}}
+        {{macro.displayField(form.confirm_pswd, 'Confirm Password')}}
+
+        <div>
+            {{form.submit_button}}
+        </div>
+
+        {{form.csrf_token}}
+    </div>
+</form>
+</body>
+{%endblock%}
