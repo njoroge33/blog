@@ -1,10 +1,10 @@
 from . import main
 from werkzeug.security import generate_password_hash
-from flask import render_template,flash, redirect, url_for
+from flask import render_template,flash, redirect, url_for, request
 from flask_login import login_user, current_user, logout_user, login_required
 from .forms import *
 from ..models import *
-from .. import db
+from .. import db, photos
 
 @main.route('/',methods=['POST', 'GET'])
 def index():
@@ -73,3 +73,14 @@ def update_profile(uname):
         return redirect(url_for('.profile',uname=user.username))
 
     return render_template('update.html',form =form)
+
+@main.route('/user/<uname>/update/pic',methods= ['POST'])
+@login_required
+def update_pic(uname):
+    user = User.query.filter_by(username = uname).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic_path = path
+        db.session.commit()
+    return redirect(url_for('main.profile',uname=uname))
