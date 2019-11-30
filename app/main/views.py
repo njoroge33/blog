@@ -1,7 +1,7 @@
 from . import main
 from werkzeug.security import generate_password_hash
 from flask import render_template,flash, redirect, url_for
-from flask_login import login_user
+from flask_login import login_user, current_user
 from .forms import *
 from ..models import *
 from .. import db
@@ -36,7 +36,16 @@ def login():
     if login_form.validate_on_submit():
         user_object =User.query.filter_by(username=login_form.username.data).first()
         login_user(user_object)
-        return 'uesr'
+        return redirect(url_for('main.profile',uname=login_form.username.data))
         
 
     return render_template('login.html', form=login_form)
+
+@main.route('/user/<uname>', methods=['GET', 'POST'])
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
+
+    if not current_user.is_authenticated:
+        return redirect(url_for('main.login'))
+
+    return render_template("profile.html", user=user)
