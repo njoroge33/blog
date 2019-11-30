@@ -53,3 +53,13 @@ class Quote:
         self.id =id
         self.quote = quote
         self.permalink = permalink
+
+class Comment(db.Model):
+    '''Comments model'''
+    __tablename__='comments'
+    id = db.Column(db.Integer,primary_key=True)
+    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable= False)
+    description = db.Column(db.Text)
+    def __repr__(self):
+        return f"Comment : id: {self.id} comment: {self.description}"
