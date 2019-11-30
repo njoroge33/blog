@@ -1,5 +1,6 @@
 from . import main
-from flask import render_template,flash
+from flask import render_template,flash, redirect, url_for
+from flask_login import login_user
 from .forms import *
 from ..models import *
 from .. import db
@@ -22,10 +23,17 @@ def signup():
         db.session.add(user)
         db.session.commit()
 
+        return redirect(url_for('main.login'))
+
     return render_template('signup.html', form=reg_form)
 
 @main.route('/login', methods=['GET', 'POST'])
 def login():
     login_form = LoginForm()
+
+    #login if validation is successful
+    if login_form.validate_on_submit():
+        return 'user'
+        
 
     return render_template('login.html', form=login_form)
