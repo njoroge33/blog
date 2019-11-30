@@ -36,3 +36,8 @@ class LoginForm(FlaskForm):
 class UpdateProfile(FlaskForm):
     bio = TextAreaField('Tell us about you.',validators = [InputRequired(message="Bio is required")])
     submit= SubmitField('Update')
+
+class BlogForm(FlaskForm):
+    title = StringField('title', validators=[InputRequired(message="Title required")])
+    description = StringField('description', validators=[InputRequired(message="Description required")])
+    submit= SubmitField('Create')

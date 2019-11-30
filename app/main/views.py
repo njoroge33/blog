@@ -44,11 +44,22 @@ def login():
 @main.route('/user/<uname>', methods=['GET', 'POST'])
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
+    form = BlogForm()
 
     if not current_user.is_authenticated:
         return redirect(url_for('main.login'))
 
-    return render_template("profile.html", user=user)
+    if form.validate_on_submit():
+        title = form.title.data
+        description = form.description.data
+        
+        blog = Blog(owner_id=user.id, title=title, description=description)
+        db.session.add(blog)
+        db.session.commit()
+
+        return redirect(url_for('main.profile', uname=user.username))
+
+    return render_template("profile.html", user=user, form=form)
 
 @main.route('/logout', methods=['GET'])
 def logout():

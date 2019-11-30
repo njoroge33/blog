@@ -47,7 +47,10 @@
             </div>
             <div class="col-12 col-md-7"
                 style="background:rgb(224, 227, 230);margin-left: 2%;border-radius: 2%;box-shadow: 5px 10px;">
+                <h1 style="padding-left: 10%;">CREATE A BLOG</h1>
+                {{wtf.quick_form(form)}}
 
+                {{form.csrf_token}}
             </div>
         </div>
     </div>
