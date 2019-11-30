@@ -4,13 +4,16 @@ from flask import render_template,flash, redirect, url_for, request
 from flask_login import login_user, current_user, logout_user, login_required
 from .forms import *
 from ..models import *
+from ..requests import *
 from .. import db, photos
 
 @main.route('/',methods=['POST', 'GET'])
 def index():
     blogs = Blog.query.all()
+    quote = get_quote()
+    print(quote)
 
-    return render_template('index.html', blogs=blogs)
+    return render_template('index.html', blogs=blogs, quote=quote)
 
 @main.route('/signup' , methods=['GET', 'POST'])
 def signup():

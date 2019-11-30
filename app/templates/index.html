@@ -5,6 +5,18 @@
 <body class="container-fluid  bg-secondary">
     <div class="container">
         <div class="row">
+            <div class="card" style="background:rgb(224, 227, 230);box-shadow: 5px 10px;margin:1%;width:100%;">
+                <h1 class="card-header">QUOTE OF THE DAY</h1>
+                <div class="card-body">
+                    <div>{{ quote.quote | capitalize }}</div>
+                    <div><strong>Created by: </strong>{{quote.author}}</div>
+                </div>
+            </div>
+        </div>
+        {%if blogs%}
+        <h1 style="background:rgb(224, 227, 230);box-shadow: 5px 10px;text-align:center;">BLOGS</h1>
+        {%endif%}
+        <div class="row">
             {% for item in blogs %}
 
             <div class="card col-sm-4" style="background:rgb(224, 227, 230);box-shadow: 5px 10px;margin:1%;">

@@ -26,6 +26,7 @@ def load_user(id):
    return User.query.get(int(id))
 
 class Blog(db.Model):
+    '''Blog model'''
     
     __tablename__ = 'blogs'
 
@@ -43,3 +44,12 @@ class Blog(db.Model):
     def get_blogs(cls,owner_id):
         blogs = Blog.query.filter_by(owner_id=owner_id).all()
         return blogs
+
+class Quote:
+    '''Quotes model'''
+
+    def __init__(self,author,id,quote,permalink):
+        self.author =  author
+        self.id =id
+        self.quote = quote
+        self.permalink = permalink
