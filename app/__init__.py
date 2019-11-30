@@ -12,6 +12,7 @@ def create_app(config_name):
     app.register_blueprint(main)
 
     app.config.from_object(config_options[config_name])
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     bootstrap.init_app(app)
     db.init_app(app)
