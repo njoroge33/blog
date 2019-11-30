@@ -2,6 +2,7 @@
     <a class="  btn btn-secondary navbar-brand" href="/">HOME</a>
 
     <div class="collapse navbar-collapse" id="navbarNav">
+        {% if not current_user.is_authenticated %}
         <ul class="nav navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="btn btn-secondary" href="{{url_for('main.signup')}}">SIGNUP</a>
@@ -11,4 +12,13 @@
                 <a class="btn btn-secondary" href="{{url_for('main.login')}}">LOGIN</a>
             </li>
         </ul>
+        {%else%}
+
+        <ul class="nav navbar-nav ml-auto">
+
+            <li class="nav-item">
+                <a class="btn btn-secondary" href="{{url_for('main.logout')}}">LOGOUT</a>
+            </li>
+        </ul>
+        {%endif%}
 </nav>

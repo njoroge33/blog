@@ -32,3 +32,7 @@ class LoginForm(FlaskForm):
     username = StringField('username_label', validators=[InputRequired(message="Username required")])
     password = PasswordField('password_label', validators=[InputRequired(message="Password required"), invalid_credentials])
     submit_button = SubmitField('Login')
+
+class UpdateProfile(FlaskForm):
+    bio = TextAreaField('Tell us about you.',validators = [InputRequired(message="Bio is required")])
+    submit= SubmitField('Update')

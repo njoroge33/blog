@@ -1,7 +1,7 @@
 from . import main
 from werkzeug.security import generate_password_hash
 from flask import render_template,flash, redirect, url_for
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user, login_required
 from .forms import *
 from ..models import *
 from .. import db
@@ -49,3 +49,27 @@ def profile(uname):
         return redirect(url_for('main.login'))
 
     return render_template("profile.html", user=user)
+
+@main.route('/logout', methods=['GET'])
+def logout():
+    logout_user()
+
+    return redirect(url_for('main.index'))
+
+@main.route('/user/<uname>/update',methods = ['GET','POST'])
+@login_required
+def update_profile(uname):
+    user = User.query.filter_by(username = uname).first()
+
+    form = UpdateProfile()
+    
+
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('.profile',uname=user.username))
+
+    return render_template('update.html',form =form)
