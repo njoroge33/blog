@@ -8,7 +8,9 @@ from .. import db, photos
 
 @main.route('/',methods=['POST', 'GET'])
 def index():
-    return render_template('index.html')
+    blogs = Blog.query.all()
+
+    return render_template('index.html', blogs=blogs)
 
 @main.route('/signup' , methods=['GET', 'POST'])
 def signup():
