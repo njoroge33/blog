@@ -1,5 +1,5 @@
 from . import main
-from flask import render_template
+from flask import render_template,flash
 from .forms import *
 from ..models import *
 from .. import db
@@ -23,3 +23,9 @@ def signup():
         db.session.commit()
 
     return render_template('signup.html', form=reg_form)
+
+@main.route('/login', methods=['GET', 'POST'])
+def login():
+    login_form = LoginForm()
+
+    return render_template('login.html', form=login_form)
