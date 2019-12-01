@@ -41,3 +41,7 @@ class BlogForm(FlaskForm):
     title = StringField('title', validators=[InputRequired(message="Title required")])
     description = StringField('description', validators=[InputRequired(message="Description required")])
     submit= SubmitField('Create')
+
+class CommentForm(FlaskForm):
+    description = StringField('',validators=[InputRequired(message="description required")])
+    submit=SubmitField('Comment')

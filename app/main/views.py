@@ -100,3 +100,18 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
+
+@main.route('/blog/<int:id>', methods=['POST', 'GET'])
+def review(id):
+    blog = Blog.query.filter_by(id=id).first()
+    form = CommentForm()
+
+    if form.validate_on_submit():
+        description = form.description.data
+
+        comment=Comment(user_id=current_user.id, blog_id=blog.id, description=description)
+
+        db.session.add(comment)
+        db.session.commit()
+
+    return render_template('review.html', blog=blog, form=form)

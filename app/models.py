@@ -3,6 +3,7 @@ from flask_login import UserMixin
 from werkzeug.security import check_password_hash
 from . import login
 import arrow
+from sqlalchemy.orm import relationship
 
 class User(UserMixin, db.Model):
     '''User model'''
@@ -32,6 +33,7 @@ class Blog(db.Model):
 
     id = db.Column(db.Integer,primary_key = True)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
+    user = relationship("User", backref="Blog")
     description = db.Column(db.String(), index = True)
     title = db.Column(db.String())
     date = db.Column(db.DateTime, nullable=False, default=arrow.utcnow().datetime)
@@ -60,6 +62,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable= False)
+    user = relationship('User', backref='Comment')
     description = db.Column(db.Text)
     def __repr__(self):
         return f"Comment : id: {self.id} comment: {self.description}"

@@ -19,12 +19,15 @@
         <div class="row">
             {% for item in blogs %}
 
-            <div class="card col-sm-4" style="background:rgb(224, 227, 230);box-shadow: 5px 10px;margin:1%;">
+            <a class="card col-sm-4"
+                style="background:rgb(224, 227, 230);box-shadow: 5px 10px;margin:1%;cursor: pointer;color: black;text-decoration: none;"
+                href={{ url_for("main.review", id=item.id) }}>
                 <div class="card-body">
                     <div>{{ item.description | capitalize }}</div>
                     <div><strong>Created: </strong>{{item.date}}</div>
+                    <div><strong>Created By: </strong>{{item.user.username}}</div>
                 </div>
-            </div>
+            </a>
             {% endfor %}
         </div>
     </div>
