@@ -24,7 +24,7 @@
                 href={{ url_for("main.review", id=item.id) }}>
                 <div class="card-body">
                     <div>{{ item.description | capitalize }}</div>
-                    <div><strong>Created: </strong>{{item.date}}</div>
+                    <div><strong>Created: </strong>{{item.date | timeago}}</div>
                     <div><strong>Created By: </strong>{{item.user.username}}</div>
                 </div>
             </a>

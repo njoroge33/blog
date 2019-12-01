@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from config import config_options
 from flask_login import LoginManager
 from flask_uploads import UploadSet,configure_uploads,IMAGES
+import arrow
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
@@ -24,5 +25,12 @@ def create_app(config_name):
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+
+    def format_date(value):
+        dt = arrow.get(value).to('UTC+3')
+        return arrow.get(dt).humanize()
+
+
+    app.jinja_env.filters['timeago'] = format_date
 
     return app
