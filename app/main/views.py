@@ -105,6 +105,7 @@ def update_pic(uname):
 def review(id):
     blog = Blog.query.filter_by(id=id).first()
     form = CommentForm()
+    comments = Comment.query.all()
 
     if form.validate_on_submit():
         description = form.description.data
@@ -114,4 +115,4 @@ def review(id):
         db.session.add(comment)
         db.session.commit()
 
-    return render_template('review.html', blog=blog, form=form)
+    return render_template('review.html', blog=blog, form=form, comments=comments)

@@ -32,6 +32,14 @@
                             {{form.csrf_token}}
                         </div>
                         {%endif%}
+
+                        {%for comment in comments%}
+                        <div class="card-body bg-light">
+                            <div>{{comment.description | capitalize}}</div>
+                            <div><strong>By:</strong>{{comment.user.username}}</div>
+                            <div><strong>When:</strong>{{comment.date}}</div>
+                        </div>
+                        {%endfor%}
                 </div>
             </div>
     </div>

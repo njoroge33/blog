@@ -64,5 +64,6 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable= False)
     user = relationship('User', backref='Comment')
     description = db.Column(db.Text)
+    date = db.Column(db.DateTime, nullable=False, default=arrow.utcnow().datetime)
     def __repr__(self):
         return f"Comment : id: {self.id} comment: {self.description}"
